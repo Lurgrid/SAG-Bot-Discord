@@ -33,7 +33,7 @@ module.exports.run = async (bot, message, args) => {
         message.channel.send(bug2)
         return
     }
-    monJson.MarvinServ.push([Salon.id,Salon.name])
+    monJson.MarvinServ.push([Salon.id,Salon.name, Salon.position])
     fs.writeFileSync('./storage/settings.json', JSON.stringify(monJson, null , 4))
     let good = new Discord.MessageEmbed()
         .setDescription("**Le channel a était ajouter**")

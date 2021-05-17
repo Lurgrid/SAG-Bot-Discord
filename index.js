@@ -91,29 +91,28 @@ function ReloadRun(Jsp, bot , message , args, prefix, command) {
 
 bot.on("voiceStateUpdate",(oldMember, newMember) => {
     var monJson = JSON.parse(fs.readFileSync('./storage/settings.json', 'utf8'));
-    console.log("maaaaa biqsdfqfdazgteeee")
     console.log((monJson.MarvinServ.find(element => element[0] === oldMember.channelID)))
     if(monJson.MarvinServ.find(element => element[0] === oldMember.channelID) !== undefined){
-        if(newMember.channel.members.size === 1 && monJson.MarvinServ.find(element => element[0] === newMember.channelID)){
-            newMember.channel.updateOverwrite(newMember.guild.members.cache.find(element => element.id === newMember.id).id, { MANAGE_CHANNELS: true, MUTE_MEMBERS: true, DEAFEN_MEMBERS: true, MOVE_MEMBERS: true, MANAGE_ROLES_OR_PERMISSIONS: true, MANAGE_ROLES: true});
-        }
-        Member2 = newMember.guild.members.cache.find(element => element.id === oldMember.id)
-        if(oldMember.channel.permissionOverwrites.find(element => element.id === Member2.id) === undefined)return
-        oldMember.channel.permissionOverwrites.find(element => element.id === Member2.id).delete()
-        console.log("ma biteeee")
+        Member2 = oldMember.guild.members.cache.find(element => element.id === oldMember.id)
+        if(oldMember.channel.permissionOverwrites.find(element => element.id === Member2.id) === undefined){}else{oldMember.channel.permissionOverwrites.find(element => element.id === Member2.id).delete()}
         if(oldMember.channel.members.size === 0){
-            console.log("ma bite")
-            console.log(monJson.MarvinServ.find(element => element[0] === oldMember.channelID))
-        //monJson.MarvinServ.find(element => element[0] === oldMember.channelID).shift()
-        //fs.writeFileSync('./storage/settings.json', JSON.stringify(monJson, null , 4))
-        //oldMember.channel.edit({name: bonnom[1], bitrate: 96000, userLimit: 0})
+            oldMember.guild.channels.create(monJson.MarvinServ.find(element => element[0] === oldMember.channelID)[1], {type: "voice" ,parent: "843135489414660097",position: monJson.MarvinServ.find(element => element[0] === oldMember.channelID)[2], bitrate: 96000, userLimit: 1})
+            .then(channel => {
+                monJson.MarvinServ.push([channel.id,monJson.MarvinServ.find(element => element[0] === oldMember.channelID)[1], monJson.MarvinServ.find(element => element[0] === oldMember.channelID)[2]])
+                oldMember.channel.delete()
+                monJson.MarvinServ.find(element => element[0] === oldMember.channelID).splice()
+                fs.writeFileSync('./storage/settings.json', JSON.stringify(monJson, null , 4))
+
+            })
         }
-        return
     }
-    console.log("maaaaa biteeee")
+    if(monJson.MarvinServ.find(element => element[0] === newMember.channelID) !== undefined){
+    console.log("join salon good")
     Member = newMember.guild.members.cache.find(element => element.id === newMember.id)
     if(newMember.channel.members.size === 1 && monJson.MarvinServ.find(element => element[0] === newMember.channelID)){
+        console.log("add perms")
         newMember.channel.updateOverwrite(Member.id, { MANAGE_CHANNELS: true, MUTE_MEMBERS: true, DEAFEN_MEMBERS: true, MOVE_MEMBERS: true, MANAGE_ROLES_OR_PERMISSIONS: true, MANAGE_ROLES: true});
+    }
     }
 })
 
