@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const fs = require('fs');
-var monJson = JSON.parse(fs.readFileSync('./Storage/Settings.json', 'utf8'));
+var monJson = JSON.parse(fs.readFileSync('./storage/settings.json', 'utf8'));
 var prefix = monJson.luluinfo.prefix
 const token = monJson.luluinfo.token
 
@@ -20,7 +20,7 @@ bot.on('ready', () => {
         if (M<10) {M = "0" + M }
         var a=ladate.getFullYear();
     console.log(`[${h}:${m}:${s} | ${j}/${M}/${a}] connecté en tant que ${bot.user.tag}`);
-    fs.writeFileSync('./Storage/Settings.json', JSON.stringify(monJson, null , 4));
+    fs.writeFileSync('./storage/settings.json', JSON.stringify(monJson, null , 4));
             bot.user.setActivity(monJson.luluinfo.stream, {
         type: "STREAMING",
         url: "https://www.twitch.tv/Marvin est gay"
@@ -90,7 +90,7 @@ function ReloadRun(Jsp, bot , message , args, prefix, command) {
 };
 
 bot.on("voiceStateUpdate",(oldMember, newMember) => {
-    var monJson = JSON.parse(fs.readFileSync('./Storage/Settings.json', 'utf8'));
+    var monJson = JSON.parse(fs.readFileSync('./storage/settings.json', 'utf8'));
     console.log("maaaaa biqsdfqfdazgteeee")
     console.log((monJson.MarvinServ.find(element => element[0] === oldMember.channelID)))
     if(monJson.MarvinServ.find(element => element[0] === oldMember.channelID) !== undefined){
@@ -105,7 +105,7 @@ bot.on("voiceStateUpdate",(oldMember, newMember) => {
             console.log("ma bite")
             console.log(monJson.MarvinServ.find(element => element[0] === oldMember.channelID))
         //monJson.MarvinServ.find(element => element[0] === oldMember.channelID).shift()
-        //fs.writeFileSync('./Storage/Settings.json', JSON.stringify(monJson, null , 4))
+        //fs.writeFileSync('./storage/settings.json', JSON.stringify(monJson, null , 4))
         //oldMember.channel.edit({name: bonnom[1], bitrate: 96000, userLimit: 0})
         }
         return

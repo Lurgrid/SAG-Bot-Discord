@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const fs = require('fs');
-var monJson = JSON.parse(fs.readFileSync('./Storage/Settings.json', 'utf8'));
+var monJson = JSON.parse(fs.readFileSync('./storage/settings.json', 'utf8'));
 
 module.exports.run = async (bot, message, args) => {
     if (message.deletable) message.delete(); 
@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) => {
         var msg = `${monJson.luluinfo.prefix}set`
         var number1 = message.content.slice(msg.length + 1);
         monJson.SAG = number1
-        fs.writeFileSync('./Storage/Settings.json', JSON.stringify(monJson, null , 4));
+        fs.writeFileSync('./storage/settings.json', JSON.stringify(monJson, null , 4));
 }   else {
     let embed = new Discord.RichEmbed()
     .setAuthor(`Tu n'as pas la permission de faire la commande "${message.content}"`)

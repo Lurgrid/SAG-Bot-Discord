@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const fs = require('fs');
-var monJson = JSON.parse(fs.readFileSync('./Storage/Settings.json', 'utf8'));
+var monJson = JSON.parse(fs.readFileSync('./storage/settings.json', 'utf8'));
 
 module.exports.run = async (bot, message, args) => {
     if (message.deletable) message.delete();
@@ -34,7 +34,7 @@ module.exports.run = async (bot, message, args) => {
         return
     }
     monJson.MarvinServ.push([Salon.id,Salon.name])
-    fs.writeFileSync('./Storage/Settings.json', JSON.stringify(monJson, null , 4))
+    fs.writeFileSync('./storage/settings.json', JSON.stringify(monJson, null , 4))
     let good = new Discord.MessageEmbed()
         .setDescription("**Le channel a était ajouter**")
         .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`);

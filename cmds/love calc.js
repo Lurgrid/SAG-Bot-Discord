@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const fs = require('fs');
-var monJson = JSON.parse(fs.readFileSync('./Storage/Settings.json', 'utf8'));
+var monJson = JSON.parse(fs.readFileSync('./storage/settings.json', 'utf8'));
 
 module.exports.run = async (bot, message, args) => {
     if (message.deletable) message.delete();
