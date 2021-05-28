@@ -27,6 +27,4 @@ module.exports.run = async (bot, message, args) => {
       message.channel.send(infoEmbed).catch(err =>  console.log(err));  
     
 }
-module.exports.help = {
-    name: "serv-info"
-}
+module.exports.help = { name: ["serv-info"]}

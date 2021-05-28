@@ -8,15 +8,15 @@ module.exports.run = async (bot, message, args) => {
     if(args[0] === undefined){
          personne =''
     } else {
-        personne = `**${message.author.toString()} encule ${args.join(" ")}** `
+        personne = `**${message.author.toString()} fait un bisous a ${args.join(" ")}** `
     }
-    var random = Math.floor (Math.random() * (Gifs.baiz.length));
+    var random = Math.floor (Math.random() * (Gifs.kiss.length));
     let embed = new Discord.MessageEmbed()
         .setColor(`${monJson.luluinfo.couleur}`)
         .setDescription(personne)
-        .setImage(Gifs.baiz[random])
+        .setImage(Gifs.kiss[random])
         .setTimestamp()
         .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`);
     message.channel.send(embed)
 }
-module.exports.help = {name: ["baiz"]}
+module.exports.help = {name: ["kiss"]}

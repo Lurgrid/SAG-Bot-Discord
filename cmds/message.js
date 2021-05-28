@@ -5,6 +5,7 @@ var monJson = JSON.parse(fs.readFileSync('./storage/settings.json', 'utf8'));
 
 module.exports.run = async (bot, message, args) => {
     if (message.deletable) message.delete();
+    var monJson = JSON.parse(fs.readFileSync('./storage/settings.json', 'utf8'));
     message.channel.send('𝘾𝙝𝙖𝙧𝙜𝙚𝙢𝙚𝙣𝙩 𝙚𝙣 𝙘𝙤𝙪𝙧𝙨...')
       .then(message => {
         message.edit("▓▓░░░░░░░░░░░░░░░░░░░░░░ 10%");
@@ -22,6 +23,4 @@ module.exports.run = async (bot, message, args) => {
         message.edit(monJson.Message);
     });
 }
-module.exports.help = {
-    name: "message"
-}
+module.exports.help = {name: ["message","msg"]}

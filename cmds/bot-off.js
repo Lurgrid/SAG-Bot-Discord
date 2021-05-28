@@ -7,4 +7,4 @@ module.exports.run = async (bot, message, args) => {
         if (message.deletable) message.delete();
         process.exit(2);
     }}
-module.exports.help = {name: "bot-off"}
+module.exports.help = {name: ["bot-off"]}

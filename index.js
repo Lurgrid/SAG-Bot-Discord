@@ -51,7 +51,7 @@ function loadCmds() {
 
 loadCmds()
 
-function ReloadRun(Jsp, bot , message , args, prefix, command) {
+function ReloadRun(Jsp, bot , message , args) {
     var ladate=new Date() 
         var h=ladate.getHours();
         if (h<10) {h = "0" + h}
@@ -82,38 +82,91 @@ function ReloadRun(Jsp, bot , message , args, prefix, command) {
             }else{
             console.log(`${x} re-charger et excuter. [${h}:${m}:${s} | ${j}/${M}/${a}][${message.author.tag}][${message.guild.name}/${message.channel.name}] Message: ${message}`)
             }
-            bot.commands.set(props.help.name, props);
-            var cmd = bot.commands.get(command.slice(prefix.length))
+            bot.commands.set(props.help.name, props)
+            var cmd = bot.commands.get(props.help.name)
             cmd.run(bot, message, args,)
         })}
     })
 };
-
 bot.on("voiceStateUpdate",(oldMember, newMember) => {
     var monJson = JSON.parse(fs.readFileSync('./storage/settings.json', 'utf8'));
-    console.log((monJson.MarvinServ.find(element => element[0] === oldMember.channelID)))
+    if(monJson.MarvinServ2.find(element => element[0] === oldMember.channelID) !== undefined){
+    if(monJson.MarvinServ2.find(element => element[0] === oldMember.channelID)[1]){
+        if(oldMember.channel !== null){
+            setTimeout(() => {
+                oldMember.channel.delete().catch(err => console.log("bug salon delete"))
+            }, 500);}
+        let x = monJson.MarvinServ2.indexOf(monJson.MarvinServ.find(element => element[0] === oldMember.channelID))
+        monJson.MarvinServ2.splice(x, 1)
+        fs.writeFileSync('./storage/settings.json', JSON.stringify(monJson, null , 4))
+    }else{
+    monJson.MarvinServ2.forEach(x => {
+        if(x[1]){
+        if(oldMember.guild.channels.cache.find(element => element.id == x[0]).members.size == 0){
+            oldMember.guild.channels.cache.find(element => element.id == x[0]).delete().catch(err => console.log("bug salon delete"))
+            let z = monJson.MarvinServ2.indexOf(monJson.MarvinServ2.find(element => element[0] === x[0]))
+            monJson.MarvinServ2.splice(z, 1)
+            fs.writeFileSync('./storage/settings.json', JSON.stringify(monJson, null , 4))
+        }
+    }})
+}
+}
     if(monJson.MarvinServ.find(element => element[0] === oldMember.channelID) !== undefined){
         Member2 = oldMember.guild.members.cache.find(element => element.id === oldMember.id)
-        if(oldMember.channel.permissionOverwrites.find(element => element.id === Member2.id) === undefined){}else{oldMember.channel.permissionOverwrites.find(element => element.id === Member2.id).delete()}
+        if(oldMember.channel.permissionOverwrites.find(element => element.id === Member2.id) === undefined){}else{oldMember.channel.permissionOverwrites.find(element => element.id === Member2.id).delete().catch(err => console.log("bug salon delete"))}
         if(oldMember.channel.members.size === 0){
-            oldMember.guild.channels.create(monJson.MarvinServ.find(element => element[0] === oldMember.channelID)[1], {type: "voice" ,parent: "843135489414660097",position: monJson.MarvinServ.find(element => element[0] === oldMember.channelID)[2], bitrate: 96000, userLimit: 1})
-            .then(channel => {
-                monJson.MarvinServ.push([channel.id,monJson.MarvinServ.find(element => element[0] === oldMember.channelID)[1], monJson.MarvinServ.find(element => element[0] === oldMember.channelID)[2]])
-                oldMember.channel.delete()
-                monJson.MarvinServ.find(element => element[0] === oldMember.channelID).splice()
+            if(monJson.MarvinServ.find(element => element[0] === oldMember.channelID)[2]){
+                if(oldMember.channel !== null){
+                    setTimeout(() => {
+                        oldMember.channel.delete().catch(err => console.log("bug salon delete"))
+                    }, 500);}
+                let x = monJson.MarvinServ.indexOf(monJson.MarvinServ.find(element => element[0] === oldMember.channelID))
+                monJson.MarvinServ.splice(x, 1)
                 fs.writeFileSync('./storage/settings.json', JSON.stringify(monJson, null , 4))
-
-            })
-        }
+            }else{
+                monJson.MarvinServ.forEach(x => {
+                    if(x[2]){
+                    if(oldMember.guild.channels.cache.find(element => element.id == x[0]).members.size == 0){
+                        if(oldMember.guild.channels.cache.find(element => element.id == x[0]) !== null){
+                        oldMember.guild.channels.cache.find(element => element.id == x[0]).delete().catch(err => console.log("bug salon delete"))}
+                        let z = monJson.MarvinServ.indexOf(monJson.MarvinServ.find(element => element[0] === x[0]))
+                        monJson.MarvinServ.splice(z, 1)
+                        fs.writeFileSync('./storage/settings.json', JSON.stringify(monJson, null , 4))
+                    }
+                }})
+            oldMember.guild.channels.create(monJson.MarvinServ.find(element => element[0] === oldMember.channelID)[1], {type: "voice" ,parent: "843135489414660097",position: oldMember.channel.position, bitrate: 96000, userLimit: 1})
+            .then(channel => {
+                if(oldMember.channel !== null){
+                setTimeout(() => {
+                    oldMember.channel.delete().catch(err => console.log("bug salon delete"))
+                }, 500);}
+                monJson.MarvinServ.find(element => element[0] === oldMember.channelID).splice(0 , 1 , channel.id)
+                fs.writeFileSync('./storage/settings.json', JSON.stringify(monJson, null , 4))
+            })}}}   
+    const fullchannel = (currentValue) => newMember.guild.channels.cache.find(element => element.id === currentValue[0]).members.size > 0
+    if(monJson.MarvinServ2.every(fullchannel)){
+        let y = newMember.guild.channels.cache.find(element => element.id == monJson.MarvinServ2[monJson.MarvinServ2.length - 1][0])
+        let p = y.position + 0
+       newMember.guild.channels.create(`🎮- Jeux #${monJson.MarvinServ2.length + 1}`, {type: "voice" ,parent: "843135489414660097",position: p, bitrate: 96000})
+       .then(channel => {
+        monJson.MarvinServ2.push([channel.id, true])
+        fs.writeFileSync('./storage/settings.json', JSON.stringify(monJson, null , 4))
+       })
+    }
+    if(monJson.MarvinServ.every(fullchannel)){
+        let y = newMember.guild.channels.cache.find(element => element.id == monJson.MarvinServ[monJson.MarvinServ.length - 1][0])
+        let p = y.position + 1
+       newMember.guild.channels.create(`❌-Privé #${monJson.MarvinServ.length + 1}`, {type: "voice" ,parent: "843135489414660097",position: p, bitrate: 96000, userLimit: 1})
+       .then(channel => {
+        monJson.MarvinServ.push([channel.id, channel.name, true])
+        fs.writeFileSync('./storage/settings.json', JSON.stringify(monJson, null , 4))
+       })
     }
     if(monJson.MarvinServ.find(element => element[0] === newMember.channelID) !== undefined){
-    console.log("join salon good")
     Member = newMember.guild.members.cache.find(element => element.id === newMember.id)
     if(newMember.channel.members.size === 1 && monJson.MarvinServ.find(element => element[0] === newMember.channelID)){
-        console.log("add perms")
         newMember.channel.updateOverwrite(Member.id, { MANAGE_CHANNELS: true, MUTE_MEMBERS: true, DEAFEN_MEMBERS: true, MOVE_MEMBERS: true, MANAGE_ROLES_OR_PERMISSIONS: true, MANAGE_ROLES: true});
-    }
-    }
+    }}
 })
 
 bot.on("guildMemberAdd", member => {
@@ -149,8 +202,9 @@ bot.on('message', message => {
         console.log("RELOAD TERMINER")
         return;
     }
-    Command = bot.nom.get(Commande)
-    ReloadRun(Command, bot , message, args, prefix, command)
+    var mabite = bot.commands.find(element => element.help.name.includes(Commande))
+    Command = bot.nom.get(mabite.help.name)
+    ReloadRun(Command, bot , message, args)
 })
 
 bot.login(token);

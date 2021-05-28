@@ -61,4 +61,4 @@ module.exports.run = async (bot, message, args) => {
         .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`);
     message.channel.send(embed)
 }
-module.exports.help = {name: "lc"}
+module.exports.help = {name: ["lc"]}

@@ -6,17 +6,17 @@ var Gifs = JSON.parse(fs.readFileSync('./storage/gif.json'));
 module.exports.run = async (bot, message, args) => {
     if (message.deletable) message.delete();
     if(args[0] === undefined){
-         personne =''
+        personne = ''
     } else {
-        personne = `**${message.author.toString()} encule ${args.join(" ")}** `
+        personne = `**${message.author.toString()} frappe ${args.join(" ")}** `
     }
-    var random = Math.floor (Math.random() * (Gifs.baiz.length));
+    var random = Math.floor (Math.random() * (Gifs.punch.length));
     let embed = new Discord.MessageEmbed()
         .setColor(`${monJson.luluinfo.couleur}`)
         .setDescription(personne)
-        .setImage(Gifs.baiz[random])
+        .setImage(Gifs.punch[random])
         .setTimestamp()
         .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`);
     message.channel.send(embed)
 }
-module.exports.help = {name: ["baiz"]}
+module.exports.help = {name: ["punch"]}
