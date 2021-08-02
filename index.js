@@ -182,6 +182,7 @@ bot.on("guildMemberAdd", member => {
         var M=ladate.getMonth() + 1
         if (M<10) {M = "0" + M }
         var a=ladate.getFullYear();
+        member.guild.channels.cache.get("272415699224494082").send(`<@!${member.user.id}> est un fdp`)
     member.roles.add('285326610477875200').then(console.log(`[${h}:${m}:${s} | ${j}/${M}/${a}] ` + 'Role added at : ' + member.user.tag)).catch(console.error);
 })
 
@@ -203,7 +204,11 @@ bot.on('message', message => {
         return;
     }
     var mabite = bot.commands.find(element => element.help.name.includes(Commande))
-    Command = bot.nom.get(mabite.help.name)
+    if(mabite === undefined){
+        Command = undefined
+    }else{
+        Command = bot.nom.get(mabite.help.name)
+    }
     ReloadRun(Command, bot , message, args)
 })
 
