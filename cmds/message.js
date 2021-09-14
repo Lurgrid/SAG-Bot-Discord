@@ -1,11 +1,15 @@
 const Discord = require("discord.js");
 const fs = require('fs');
-var monJson = JSON.parse(fs.readFileSync('./storage/settings.json', 'utf8'));
-
 
 module.exports.run = async (bot, message, args) => {
-    if (message.deletable) message.delete();
-    var monJson = JSON.parse(fs.readFileSync('./storage/settings.json', 'utf8'));
+  let monJson = JSON.parse(fs.readFileSync('./storage/settings.json', 'utf8'));
+  if(!monJson.luluinfo.owner.includes(message.author.id)) return
+  if (message.deletable) message.delete();
+  if(args[0] == "set"){
+    monJson.Message = args.slice(1).join(" ")
+    fs.writeFileSync('./storage/settings.json', JSON.stringify(monJson, null , 4));
+    return
+  }
     message.channel.send('𝘾𝙝𝙖𝙧𝙜𝙚𝙢𝙚𝙣𝙩 𝙚𝙣 𝙘𝙤𝙪𝙧𝙨...')
       .then(message => {
         message.edit("▓▓░░░░░░░░░░░░░░░░░░░░░░ 10%");
@@ -23,4 +27,4 @@ module.exports.run = async (bot, message, args) => {
         message.edit(monJson.Message);
     });
 }
-module.exports.help = {name: ["message","msg"]}
+module.exports.help = {name: "message msg", help:[".","."]}

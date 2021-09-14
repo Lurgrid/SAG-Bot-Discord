@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args) => {
         if(args[1].startsWith("<@!")){
             bot.user.setAvatar( message.mentions.users.first().avatarURL.toString()).catch(err => message.channel.send(EmbedEr))
         }else{
-            bot.user.setAvatar(args[1].toString()).catch(err => message.channel.send(EmbedEr))
+            bot.user.setAvatar(args[1].toString()).catch(err => message.channel.send({ embeds: [EmbedEr] }))
         }
     }else{
     if (args[0].startsWith("<@!")){var gens = message.mentions.users.first()}else{var gens = message.author}
@@ -21,6 +21,6 @@ module.exports.run = async (bot, message, args) => {
       .setImage(gens.avatarURL({ size: 2048, dynamic: true }))
       .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`)
       .setTimestamp()
-      message.channel.send(embed).catch(err => console.log(err));   }
+      message.channel.send({ embeds: [embed] }).catch(err => console.log(err));   }
     }
-module.exports.help = { name: ["pp"]}
+module.exports.help = { name: "pp", help:["Info","Pour avoir la photo de profile de la personne demander"]}

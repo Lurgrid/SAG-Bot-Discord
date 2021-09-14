@@ -10,6 +10,6 @@ module.exports.run = async (bot, message, args) => {
         .setImage(`https://cdn.discordapp.com/attachments/705477515673600100/725089136872259614/unknown.png`)
         .setTimestamp()
         .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`);
-    message.channel.send(embed)
+    message.channel.send({ embeds: [embed] })
 }
-module.exports.help = { name: ["sorry"]}
+module.exports.help = { name: "sorry", help:[".","."]}

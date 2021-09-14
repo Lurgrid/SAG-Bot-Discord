@@ -30,27 +30,27 @@ module.exports.run = async (bot, message, args, osuApi) => {
       .setTitle("Information de la meilleur game OSU de la personne demandé")
       .setColor(monJson.luluinfo.couleur)
       .addField("Pseudo :", args[1],true)
-      .addField("Score :", scores[0].score,true)
+      .addField("Score :", scores[0].score.toString(),true)
       .addField("Date (UTC+0):", scores[0].raw_date,true)
-      .addField("Perfect :", scores[0].perfect,true)
-      .addField("Rank :", scores[0].rank,true)
-      .addField("PP :", scores[0].pp,true)
+      .addField("Perfect :", scores[0].perfect.toString(),true)
+      .addField("Rank :", scores[0].rank.toString(),true)
+      .addField("PP :", scores[0].pp.toString(),true)
       .addField("Mode de jeu :", scores[0]._beatmap.mode,true)
       .addField("Mode :", modee,true)
-      .addField("Combo/MaxCombo :", scores[0].maxCombo+" / "+scores[0]._beatmap.maxCombo,true)
+      .addField("Combo/MaxCombo :", scores[0].maxCombo.toString()+" / "+scores[0]._beatmap.maxCombo.toString(),true)
       .addField('\u200b', '\u200b')
       .addField("Nom de la map :", scores[0]._beatmap.title,true)
       .addField("Source de la map :", scores[0]._beatmap.source,true)
-      .addField("Difculté :", scores[0]._beatmap.difficulty.rating,true)
-      .setImage("https://assets.ppy.sh/beatmaps/"+ scores[0]._beatmap.beatmapSetId +"/covers/cover.jpg")
+      .addField("Difculté :", scores[0]._beatmap.difficulty.rating.toString(),true)
+      .setImage("https://assets.ppy.sh/beatmaps/"+ scores[0]._beatmap.beatmapSetId.toString() +"/covers/cover.jpg")
       .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`)
       .setTimestamp()
-      message.channel.send(embed).catch(err => console.log(err));
+      message.channel.send({ embeds: [embed] }).catch(err => console.log(err));
     }).catch(err =>{
       let Buguser = new Discord.MessageEmbed()
       .setDescription("**Merci de mettre un Pseudo d'un joueur Osu || Ou le joueur demandé n'a pas jouer récemment**")
       .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`);
-      message.channel.send(Buguser)
+      message.channel.send({ embeds: [Buguser] })
     })
     }
 module.exports.help = { name: "best"}

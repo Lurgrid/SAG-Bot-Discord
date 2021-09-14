@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) => {
         let bug = new Discord.MessageEmbed()
         .setDescription("**Veuillez faire le love calc sur une personne**")
         .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`);
-        message.channel.send(bug)
+        message.channel.send({ embeds: [bug] })
         return
     }else if(args[1] === undefined){
         var Who = `${message.author} + ${args[0]} = __**${random}%**__ d'amour`
@@ -59,6 +59,6 @@ module.exports.run = async (bot, message, args) => {
         .setImage(gif)
         .setTimestamp()
         .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`);
-    message.channel.send(embed)
+    message.channel.send({ embeds: [embed] })
 }
-module.exports.help = {name: ["lc"]}
+module.exports.help = {name: "lovecalc lc", help:["Random","Poue savoir ton taux d'amour avec une personne"]}

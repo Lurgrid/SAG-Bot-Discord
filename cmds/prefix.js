@@ -4,38 +4,24 @@ var monJson = JSON.parse(fs.readFileSync('./storage/settings.json', 'utf8'));
 
 
 module.exports.run = async (bot, message, args) => {
-
-    if (message.author.id === (monJson.luluinfo.owner[0]) ||message.author.id === (monJson.luluinfo.owner[1]) ) {
-        message.delete()
-
-    var msg = `${monJson.luluinfo.prefix}prefix`
-    var messageSlice = message.content.slice(msg.length + 1 );
-
-    if (messageSlice.length <= 0 ){
+    if(!monJson.luluinfo.owner.includes(message.author.id)) return
+    if (message.deletable) message.delete();
+    if (args[0] == undefined){
 
         let embed1 = new Discord.MessageEmbed()
         .setAuthor(`Erreur le préfixe est vide vous devez mettre un préfixe `)
         .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`);+
         
-        message.channel.send(embed1)
+        message.channel.send({ embeds: [embed1] })
     } else {
-
-    console.log(`${msg.length}`)
-        monJson.luluinfo.prefix = messageSlice
+        monJson.luluinfo.prefix = args[0]
         fs.writeFileSync('./storage/settings.json', JSON.stringify(monJson, null , 4));
         let embed = new Discord.MessageEmbed()
-        .setAuthor(`Le nouveau préfixe est "${messageSlice}" pour qu'il marche redémarrer le bot`)
+        .setAuthor(`Le nouveau préfixe est "${args[0]}"`)
         .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`);+
-        message.channel.send(embed)
+        message.channel.send({ embeds: [embed] })
 
     }
-}  else {
-    let embed = new Discord.MessageEmbed()
-    .setAuthor(`Tu n'as pas la permission de faire la commande "${message.content}"`)
-
-    message.channel.send(embed)
 }
 
-}
-
-module.exports.help = { name: ["prefix"]}
+module.exports.help = { name: "prefix", help:[".","."]}

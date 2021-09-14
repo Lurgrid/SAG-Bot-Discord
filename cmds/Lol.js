@@ -40,7 +40,7 @@ loading()
                     let embedd = new Discord.MessageEmbed()
                     .setDescription("**Aucune commande de la catégorie Lol s'appelle comme ça**")
                     .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`);
-                    message.channel.send(embedd)
+                    message.channel.send({ embeds: [embedd] })
 
                 }else{
                 jsFiles.forEach((x) => {
@@ -58,7 +58,7 @@ loading()
     }else{
         (async () => {
             let connect = "Connecté a l'API de Riot"
-            const response = await got("https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/lurgrid?api_key="+monLol.key)
+            const response = await got("https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/Ϋuumi?api_key="+monLol.key)
             .catch(err => {
                 connect = "Non connecté a l'API de Riot"
             })
@@ -66,17 +66,17 @@ loading()
             //console.log(json)
             let embed = new Discord.MessageEmbed()
             .setAuthor(`𝐋𝐞𝐚𝐠𝐮𝐞 𝐨𝐟 𝐋𝐞𝐠𝐞𝐧𝐝 : 𝐂𝐨𝐦𝐦𝐚𝐧𝐝𝐬 𝘽𝙮 𝙇𝙪𝙧𝙜𝙧𝙞𝙙`)
-            .setColor(`#000000`)
-            .setDescription(`𝘛𝘰𝘶𝘵𝘦 𝘭𝘦𝘴 𝘤𝘰𝘮𝘮𝘢𝘯𝘥𝘦𝘴`)
+            .setColor(MessageEmbed.Color)
+            .setDescription(MessageEmbed.Description)
             .addField(`${monJson.luluinfo.prefix}Lol info [User Name]`, `Donne les informations de l'utilisateur demandé`)
             .addField(`${monJson.luluinfo.prefix}Lol Last [User Name]`, `Donne les informations de la dernière partie de l'utilisateur demandé`)
             .setImage('https://cdn.discordapp.com/attachments/600516263952777218/857316479551406120/0a11d63744c4d5bb47dac71d37e1829f77bc8ca8r1-500-213_hq.gif')
             .setTimestamp()
             .setFooter(`By Lurgrid φ | ` + connect ,`${bot.user.avatarURL()}`);
-            message.channel.send(embed)
+            message.channel.send({ embeds: [embed] })
         }) ();
 
 }
 }
 
-module.exports.help = { name: ["lol"]}
+module.exports.help = { name: "lol", help:["Jeux","Pour avoir les informations d'un compte league of legend"]}

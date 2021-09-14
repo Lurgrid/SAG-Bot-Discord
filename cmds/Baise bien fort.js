@@ -17,6 +17,6 @@ module.exports.run = async (bot, message, args) => {
         .setImage(Gifs.baiz[random])
         .setTimestamp()
         .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`);
-    message.channel.send(embed)
+    message.channel.send({ embeds: [embed] })
 }
-module.exports.help = {name: ["baiz"]}
+module.exports.help = {name: "baiz", help:["Gifs","Pour enculé une personne"]}

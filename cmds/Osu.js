@@ -46,7 +46,7 @@ loading()
                     let embedd = new Discord.MessageEmbed()
                     .setDescription("**Aucune commande de la catégorie Osu s'appelle comme ça**")
                     .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`);
-                    message.channel.send(embedd)
+                    message.channel.send({ embeds: [embedd] })
 
                 }else{
                 jsFiles.forEach((x) => {
@@ -70,8 +70,8 @@ loading()
 
     let embed = new Discord.MessageEmbed()
     .setAuthor(`𝐎𝐬𝐮 : 𝐂𝐨𝐦𝐦𝐚𝐧𝐝𝐬 𝘽𝙮 𝙇𝙪𝙧𝙜𝙧𝙞𝙙`)
-    .setColor(`#000000`)
-    .setDescription(`𝘛𝘰𝘶𝘵𝘦 𝘭𝘦𝘴 𝘤𝘰𝘮𝘮𝘢𝘯𝘥𝘦𝘴`)
+    .setColor(MessageEmbed.Color)
+    .setDescription(MessageEmbed.Description)
     .addField(`${monJson.luluinfo.prefix}Osu info [OsuUser]`, `Donne les informations du compte de la personne`)
     .addField(`${monJson.luluinfo.prefix}Osu recent [OsuUser]`, `Donne les informations de la dernière game de la personne`)
     .addField(`${monJson.luluinfo.prefix}Osu best [OsuUser]`, `Donne les informations de la meilleur game de la personne`)
@@ -80,8 +80,8 @@ loading()
     .setFooter(`By Lurgrid φ | ` + connectt ,`${bot.user.avatarURL()}`);
     console.log(osuApi)
 
-    message.channel.send(embed)
+    message.channel.send({ embeds: [embed] })
 }
 }
 
-module.exports.help = { name: ["osu"]}
+module.exports.help = { name: "osu", help:["Jeux","Pour avoir les information d'un joueur"]}

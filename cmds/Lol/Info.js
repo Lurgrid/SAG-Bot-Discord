@@ -29,22 +29,22 @@ module.exports.run = async (bot, message, args) => {
       .setTitle("Information du compte LOL de la personne demandé")
       .setColor(monJson.luluinfo.couleur)
       .addField("Pseudo :", `${user.name}`,true)
-      .addField("Level:", user.summonerLevel,true)
+      .addField("Level:", user.summonerLevel.toString(),true)
       .addField('\u200b', '\u200b', true)
       .addField("Rank Flex:", rank2 ,true)
       .addField("Rank Solo/Duo:", rank ,true)
       .addField('\u200b', '\u200b')
       .addField("Photo de profils :", "\u200b")
-      .setImage("http://ddragon.leagueoflegends.com/cdn/11.13.1/img/profileicon/"+ user.profileIconId+".png")
+      .setImage("http://ddragon.leagueoflegends.com/cdn/11.17.1/img/profileicon/"+ user.profileIconId+".png")
       .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`)
       .setTimestamp()
-      message.channel.send(embed).catch(err => console.log(err));
+      message.channel.send({ embeds: [embed] }).catch(err => console.log(err));
     })
     }).catch(err =>{
       let Buguser = new Discord.MessageEmbed()
       .setDescription("**Merci de mettre un Pseudo d'un joueur Lol**")
       .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`);
-      message.channel.send(Buguser)
+      message.channel.send({ embeds: [Buguser] })
     })
     }
 module.exports.help = { name: "info"}

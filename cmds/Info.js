@@ -10,14 +10,14 @@ module.exports.run = async (bot, message, args) => {
       .addField('\u200b', '\u200b')
       .setColor(monJson.luluinfo.couleur)
       .addField("Pseudo :", `${gens.username}`)
-      .addField("Date de création du compte :", gens.createdAt)
-      .addField("Tag :", '#' + gens.discriminator)
-      .addField("ID :", gens.id)
+      .addField("Date de création du compte :", gens.createdAt.toString())
+      .addField("Tag :", '#' + gens.discriminator.toString())
+      .addField("ID :", gens.id.toString())
       .addField("Pseudo + tag :", gens.tag)
       .addField('\u200b', '\u200b')
       .addField("Photo de profils :", "Image")
       .setImage(gens.avatarURL({ size: 2048, dynamic: true }))
       .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`)
       .setTimestamp()
-      message.channel.send(embed).catch(err => console.log(err));}
-module.exports.help = { name: ["info"]}
+      message.channel.send({ embeds: [embed] }).catch(err => console.log(err));}
+module.exports.help = { name: "info", help:["Info","Pour avoir les informations d'un compte discord demander"]}

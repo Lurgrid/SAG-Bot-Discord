@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, args) => {
         let bug = new Discord.MessageEmbed()
         .setDescription("**Veuillez mettre un ou des argument**")
         .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`);
-        message.channel.send(bug)
+        message.channel.send({ embeds: [bug] })
         return;
     }
     if(args[0].toLowerCase() === "number"){
@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args) => {
             let bug2 = new Discord.MessageEmbed()
         .setDescription("**Veuillez mettre un ou des nombre**")
         .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`);
-        message.channel.send(bug2)
+        message.channel.send({ embeds: [bug2] })
         return;
         }else{
             if(args[2] === undefined){
@@ -51,6 +51,6 @@ module.exports.run = async (bot, message, args) => {
         .addField(`Les choix qu'il y avait :`,choix)
         .setColor(monJson.luluinfo.couleur)
         .setFooter(`By Lurgrid φ`,`${bot.user.avatarURL()}`);
-    message.channel.send(embed)
+    message.channel.send({ embeds: [embed] })
 }
-module.exports.help = {name: ["random"]}
+module.exports.help = {name: "random", help:["Random","Pour tiré un nombre et choisir entre different mots"]}
