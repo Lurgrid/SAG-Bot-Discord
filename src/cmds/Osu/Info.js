@@ -41,7 +41,7 @@ export default class {
           message.channel.send({ embeds: [embed] }).catch(err => console.log(err));
       }).catch(err =>{
         let Buguser = new Discord.MessageEmbed()
-          .setDescription("**Merci de mettre un Pseudo d'un joueur Osu**")
+          .setDescription("**Merci de mettre un pseudo d'un joueur Osu**")
         message.channel.send({ embeds: [Buguser] })
       })
     }
