@@ -1,0 +1,7 @@
+{
+    "voice": false,
+    "mute": false,
+    "auto_role": false,
+    "message_join": false,
+    "message_leave": false
+}

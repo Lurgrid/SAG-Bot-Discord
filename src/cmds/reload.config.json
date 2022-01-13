@@ -1,0 +1,9 @@
+{
+    "authorization":{
+        "allow":{
+            "servers":[],
+            "users":[]
+        },
+        "deny": true
+    }
+}

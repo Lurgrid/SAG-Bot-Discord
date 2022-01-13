@@ -1,0 +1,10 @@
+{
+    "authorization": {
+        "allow": {
+            "servers": [],
+            "users": []
+        },
+        "deny": true
+    },
+    "spam": "1"
+}
