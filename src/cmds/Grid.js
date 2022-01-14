@@ -1,5 +1,6 @@
 "use strict";
 import { MessageEmbed } from 'discord.js'
+import { readFileSync, writeFileSync } from 'fs'
 
 export default class {
     constructor(client){
@@ -13,20 +14,15 @@ export default class {
         let Serv = message.guild
         tmp = args.find(arg => arg.toLowerCase() == "-serv")
         tmpNB = args.indexOf(tmp) + 1
-        if(tmp !== undefined) Serv = this.client.guilds.cache.get(args[tmpNB])
-        if (Serv === null){
-            const errserv = new MessageEmbed()
-                .setTitle("Veuillez mettre une ID de serveur vu que nous somme dans des MP")
-                .setDescription(message.content);
-            message.author.send({ embeds: [errserv] })
-            return 
-        }
-        if(Serv === undefined){
-            const errserv = new MessageEmbed()
-                .setTitle("Veuillez mettre une ID de serveur valide")
-                .setDescription(message.content);
-            message.author.send({ embeds: [errserv] })
-            return 
+        if(tmp){
+            Serv = this.client.guilds.cache.get(args[tmpNB])
+            if(Serv === undefined){
+                const errserv = new MessageEmbed()
+                    .setTitle("Veuillez mettre une ID de serveur valide")
+                    .setDescription(message.content);
+                message.author.send({ embeds: [errserv] })
+                return 
+            }
         }
         // ------- Set Serveur ------- //
 
@@ -95,6 +91,13 @@ export default class {
         if(args[tmpNB].toLowerCase() === "voice"){
             tmpNB++
             if( args[tmpNB] === undefined) args[tmpNB] = ""
+            if (Serv === null){
+                const errserv = new MessageEmbed()
+                    .setTitle("Veuillez mettre une ID de serveur vu que nous somme dans des MP")
+                    .setDescription(message.content);
+                message.author.send({ embeds: [errserv] })
+                return 
+            }
             switch(args[tmpNB].toLowerCase()){
                 case "kick":
                     Serv.members.cache.get(User).voice.disconnect()
@@ -130,6 +133,13 @@ export default class {
                 message.author.send({ embeds: [errus] })
                 return
             }
+            if (Serv === null){
+                const errserv = new MessageEmbed()
+                    .setTitle("Veuillez mettre une ID de serveur vu que nous somme dans des MP")
+                    .setDescription(message.content);
+                message.author.send({ embeds: [errserv] })
+                return 
+            }
             switch(args[tmpNB].toLowerCase()){
                 case "kick":
                     Serv.members.cache.get(User).kick("Wola c une très bonne raison").catch(err => {
@@ -161,6 +171,13 @@ export default class {
                 message.author.send({ embeds: [errus] })
                 return
             }
+            if (Serv === null){
+                const errserv = new MessageEmbed()
+                    .setTitle("Veuillez mettre une ID de serveur vu que nous somme dans des MP")
+                    .setDescription(message.content);
+                message.author.send({ embeds: [errserv] })
+                return 
+            }
             tmpNB++
             switch(args[tmpNB].toLowerCase()){
                 case "add":
@@ -178,6 +195,31 @@ export default class {
                             .setDescription(message.content);
                         message.author.send({ embeds: [errus] })
                     })
+                    return
+                default:
+                    const errchannel = new MessageEmbed()
+                            .setTitle("Veuillez mettre une sous action valide")
+                            .setDescription(message.content);
+                    message.author.send({ embeds: [errchannel] })
+                    return
+            }
+        }else if(args[tmpNB].toLowerCase() === "activity"){
+            tmpNB++
+            let config = JSON.parse(readFileSync('./config/client.json', 'utf8'));
+            switch(args[tmpNB].toLowerCase()){
+                case "set":
+                    args = args.slice(tmpNB+1)
+                    this.client.config.activity = args.join(" ")
+                    config.activity = args.join(" ")
+                    await writeFileSync('./config/client.json', JSON.stringify(config, null , 4));
+                    this.client.user.setActivity(this.client.config.activity, { type: "LISTENING" });
+                    
+                    return
+                case "remove":
+                    this.client.config.activity = ""
+                    config.activity = ""
+                    await writeFileSync('./config/client.json', JSON.stringify(config, null , 4));
+                    this.client.user.setActivity(this.client.config.activity);
                     return
                 default:
                     const errchannel = new MessageEmbed()

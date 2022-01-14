@@ -1,7 +1,7 @@
 {
     "token": "token",
-    "status": "J'ai toujour raison",
     "prefix": "!!",
     "admin": ["idUser"],
-    "color": "#CEA450"
+    "color": "#CEA450",
+    "activity": "J'ai toujours raison"
 }
